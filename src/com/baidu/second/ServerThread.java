@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Date;
 
 /**
  * Created by langshiquan on 17/4/8.
@@ -32,7 +33,7 @@ public class ServerThread extends Thread {
             //4、获取输出流，响应客户端的请求
             while (!line.equals("0")) {
                 //如果该字符串为 "0"，则停止循环
-                writer.println(line);   // 向"服务端"发送消息
+                writer.println(line+new Date());   // 向"服务端"发送消息
                 //向客户端输出该字符串
                 writer.flush();
                 //刷新输出流，使Client马上收到该字符串
