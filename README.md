@@ -39,7 +39,10 @@ __服务端:__
 > 重写run()方法，在内部处理业务逻辑，对socket进行处理，以实现多线程  
 >2.ServerMain2类,while(){}循环，每当收到一个socket连接，就new一个ServerThread，把socket交给子线程去处理  
 ### 题目三：原始套接字编程  
+__监听器:__   
 >1.新建一个ListenServer服务端，监听2333端口，监听ServerMain3服务端的连接，将IP和port打印在控制台上，然后等待下一次。  
+
+__服务端的修改:__
 >2.在上述2的ServerThread中新加一个方法，synMsg(String msg)，用于同步消息，将每一次收发消息都同步给ListenServer。
 >synMsg()方法每次都会开辟一个子线程去连接ServerMain3服务端  
 ### 题目四：FTP应用编程
