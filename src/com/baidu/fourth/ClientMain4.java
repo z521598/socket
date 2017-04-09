@@ -1,7 +1,6 @@
 package com.baidu.fourth;
 
 import java.io.BufferedReader;
-import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,6 +9,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+
+import com.baidu.common.Var;
 
 /**
  * Created by langshiquan on 17/4/8.
@@ -20,7 +21,7 @@ public class ClientMain4 {
         try {
             // 1、创建客户端Socket，指定服务器地址和端口
             // 向本机的52000端口发出客户请求
-            Socket socket = new Socket("192.168.1.6", 5209);
+            Socket socket = new Socket(Var.IP, Var.PORT);
             System.out.println("客户端启动成功");
             System.out.println("0.退出服务");
             Scanner scanner = new Scanner(System.in);

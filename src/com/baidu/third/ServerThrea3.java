@@ -1,49 +1,33 @@
-package com.baidu.first;
+package com.baidu.third;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import com.baidu.common.Var;
 
 /**
  * Created by langshiquan on 17/4/8.
  */
-public class ServerMain {
-    //搭建服务器端
-    public static void main(String[] args) throws IOException {
-        ServerMain socketService = new ServerMain();
-        //1、a)创建一个服务器端Socket，即SocketService
-        socketService.oneServer();
+public class ServerThrea3 extends Thread {
+
+
+    Socket socket = null;
+
+    public ServerThrea3(Socket socket) {
+        this.socket = socket;
     }
 
-    public void oneServer() {
+    public void run() {
         try {
-            ServerSocket server = null;
-            try {
-                server = new ServerSocket(Var.PORT);
-                //b)指定绑定的端口，并监听此端口。
-                System.out.println("服务器启动成功");
-                System.out.println("按\"0\"退出服务");
-                //创建一个ServerSocket在端口Var.Port监听客户请求
-            } catch (Exception e) {
-                System.out.println("没有启动监听：" + e);
-                //出错，打印出错信息
-            }
-            Socket socket = null;
-            try {
-                socket = server.accept();
-                //2、调用accept()方法开始监听，等待客户端的连接
-                //使用accept()阻塞等待客户请求，有客户请求到来则产生一个Socket对象，并继续执行
-            } catch (Exception e) {
-                System.out.println("Error." + e);
-                //出错，打印出错信息
-            }
-            //3、获取输入流，并读取客户端信息
             String line;
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             //由Socket对象得到输入流，并构造相应的BufferedReader对象
@@ -55,15 +39,18 @@ public class ServerMain {
             //在标准输出上打印从客户端读入的字符串
             line = br.readLine();// 阻塞，等待"服务端"输入消息
             //从标准输入读入一字符串
+            synMsg(line);
             //4、获取输出流，响应客户端的请求
             while (!line.equals("0")) {
                 //如果该字符串为 "0"，则停止循环
-                writer.println(line + new Date());   // 向"客户端"发送消息
+                writer.println(line + new Date());   // 向"服务端"发送消息
                 //向客户端输出该字符串
                 writer.flush();
+                synMsg(line);
                 //刷新输出流，使Client马上收到该字符串
                 //在系统标准输出上打印读入的字符串
                 String clientMsg = in.readLine();   // 阻塞，监听，等待"客户端"信息
+                synMsg(clientMsg);
                 System.out.println("Client:" + clientMsg);
                 //从Client读入一字符串，并打印到标准输出上
                 line = br.readLine();
@@ -74,11 +61,39 @@ public class ServerMain {
             writer.close(); //关闭Socket输出流
             in.close(); //关闭Socket输入流
             socket.close(); //关闭Socket
-            server.close(); //关闭ServerSocket
-        } catch (Exception e) {//出错，打印出错信息
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * 将msg同步给监听器
+     * @param msg
+     * @throws IOException
+     */
 
+    public synchronized void synMsg(final String msg) throws IOException {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Socket ltnSocket = new Socket(Var.IP, Var.LISTEN_PORT);
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(
+                            ltnSocket.getOutputStream()));
+                    System.out.println("与监听器连接已建立");
+                    System.out.println(Thread.currentThread().getId() + "同步消息给监听器");
+                    bufferedWriter.write(msg);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    ltnSocket.close();
+                    System.out.println(Thread.currentThread().getId() + ": " + msg + "消息已发出");
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
 }

@@ -3,13 +3,15 @@ package com.baidu.second;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import com.baidu.common.Var;
+
 /**
  * Created by langshiquan on 17/4/8.
  */
 public class ServerMain2 {
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(5209);
+            ServerSocket serverSocket = new ServerSocket(Var.PORT);
             System.out.println("服务端启动成功");
             Socket socket = null;
             int count = 0;//记录客户端的数量

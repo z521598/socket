@@ -1,4 +1,4 @@
-package com.baidu.fourth;
+package com.baidu.third;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,7 +8,7 @@ import com.baidu.common.Var;
 /**
  * Created by langshiquan on 17/4/8.
  */
-public class ServerMain4 {
+public class ServerMain3 {
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(Var.PORT);
@@ -17,8 +17,8 @@ public class ServerMain4 {
             int count = 0;//记录客户端的数量
             while (true) {
                 socket = serverSocket.accept();
-                ServerThread serverThread = new ServerThread(socket);   // 新建线程处理业务
-                serverThread.start();
+                ServerThrea3 serverThrea3 = new ServerThrea3(socket);   // 新建线程处理业务
+                serverThrea3.start();
                 count++;
                 System.out.println("客户端连接的数量：" + count);
             }
