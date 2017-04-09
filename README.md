@@ -46,7 +46,11 @@ __服务端的修改:__
 >2.在上述2的ServerThread中新加一个方法，synMsg(String msg)，用于同步消息，将每一次收发消息都同步给ListenServer。
 >synMsg()方法每次都会开辟一个子线程去连接ServerMain3服务端  
 ### 题目四：FTP应用编程
->1.新建一个ListenServer服务端，监听2333端口，监听
->
->
->
+__客户端:__  
+>1.将1中的BufferedReader换成DataInputStream方便接受在网络中的数据流    
+>2.将从服务端的数据缓存在byte[]数组里，然后用FileOutputStream流写在本地的文件里，已完成文件传输  
+
+__服务端:__  
+>1.将1中的BufferedWriter换成DataOutputStrea让数据用流的方式在网络中传输   
+>2.接受到客户端请求的问题的时候，会将new一个File文件，将文件数据缓存到byte[]数组中 
+>3.将流发送到客户端     
