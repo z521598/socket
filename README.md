@@ -43,8 +43,8 @@ __监听器:__
 >1.新建一个ListenServer服务端，监听2333端口，监听ServerMain3服务端的连接，将IP和port打印在控制台上，然后等待下一次。  
 
 __服务端的修改:__
->2.在上述2的ServerThread中新加一个方法，synMsg(String msg)，用于同步消息，将每一次收发消息都同步给ListenServer。
->synMsg()方法每次都会开辟一个子线程去连接ServerMain3服务端  
+>2.在上述2的ServerThread中新加一个方法，synMsg(String msg)，用于同步消息，将每一次收发消息都同步给ListenServer   
+>synMsg()方法每次都会开辟一个子线程去连接ServerMain3服务端   
 ### 题目四：FTP应用编程
 __客户端:__  
 >1.将1中的BufferedReader换成DataInputStream方便接受在网络中的数据流    
