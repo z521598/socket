@@ -8,7 +8,7 @@
 > 1.Java Socket 提供了4个API的类,我们使用了其中2个类  
 > ServerSocket用于构建服务端,用accept()方法可以接受连接  
 > Socket用于构建客户端  
-> 2.com.baidu.comon.Var类里面有一些静态变量，用于跨机器调试方便 
+> 2.com.baidu.comon.Var类里面有一些静态变量，用于跨机器调试方便    
 > 3.名词解释    
 > 1)first,second,third,fourth包名，对应这4道题  
 > 2)ServerMain意为服务端主程序，ClientMain意为客户端主程序  
